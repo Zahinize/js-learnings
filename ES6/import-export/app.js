@@ -1,11 +1,18 @@
-import NAME, { FAM_NAME, ATTRIBUTES } from './module1.js';
+import NAME, { FAM_NAME, ATTRIBUTES } from './modules/zahin-alwa/about.js';
+import TOP_MOVIES from './modules/zahin-alwa/top-movies.js';
 
 document.open();
 document.write(`<b>NAME:</b> ${NAME} <br>`);
 
+function writeToDocument(key, value) {
+	const template = `<b>${key}:</b> ${value} <br>`;
+
+	document.write(template);
+}
+
 // Log all family members
 function logFamily() {
-	return FAM_NAME.forEach(object => document.write(`<b>${object.relation}:</b> ${object.name} <br>`));
+	return FAM_NAME.forEach(object => writeToDocument(object.relation, object.name));
 }
 logFamily();
 
@@ -15,11 +22,19 @@ function logAttributes() {
 		const value = ATTRIBUTES[key];
 		const isValueArray = !!(Array.isArray(value) && value.length);
 		const computedValue = isValueArray ? value.join(', ') : value;
-		const computedTemplate = `<b>${key}:</b> ${computedValue}<br>`;
 
-		document.write(computedTemplate);
+		writeToDocument(key, computedValue);
 	});
 }
 logAttributes();
+
+// Log all Top Movies
+function logTopMovies() {
+	const key = 'MOVIES';
+	const computedValue = TOP_MOVIES.join(', ');
+
+	return writeToDocument(key, computedValue);
+}
+logTopMovies();
 
 document.close();
